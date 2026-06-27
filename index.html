@@ -8,7 +8,7 @@
   :root {
     --blue-0: #0a1c3f; --blue-1: #12305f; --blue-2: #1a4178;
     --frame: #2b5894; --gold: #f4c020; --gold-hi: #fff19a; --gold-lo: #b8860b;
-    --dim: #7b93bd; --txt: #cfe0ff; --hot: #ff7043; --cold: #4fc3f7;
+    --dim: #7b93bd; --txt: #cfe0ff; --hot: #e63a2b; --cold: #2aa3e0;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body {
@@ -191,61 +191,46 @@
     background: linear-gradient(180deg, var(--gold-hi), var(--gold) 60%, var(--gold-lo));
     box-shadow: inset 0 .1vh .15vh rgba(255,255,255,.7), 0 .1vh .3vh rgba(0,0,0,.4);
   }
-  /* columna derecha: rotador de estadisticas entre sorteos */
-  #stats { width: 100%; height: 100%; position: relative; }
-  .statview { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2vh; padding: 1.5vh .6vw; opacity: 0; visibility: hidden; transition: opacity .45s ease; }
-  .statview.active { opacity: 1; visibility: visible; }
-  .statview[data-view="hotcold"] { flex-direction: row; align-items: stretch; justify-content: center; gap: 1vw; padding: 1vh 0; }
+  /* calientes / frios verticales (columna derecha entre sorteos) */
+  #stats { width: 100%; height: 100%; display: flex; gap: 1vw; padding: 1vh 0; }
   #stats .col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 1vh; min-height: 0; min-width: 0; }
-  .svtitle { font-size: 1.6vw; font-weight: 800; letter-spacing: .12vw; text-transform: uppercase; color: var(--txt); text-align: center; line-height: 1; }
-  .svsub { font-size: .85vw; letter-spacing: .1vw; text-transform: uppercase; color: var(--txt); opacity: .55; }
-  .svcount { font-size: 7vw; font-weight: 800; color: var(--gold); line-height: 1; }
-  .svballs { display: flex; flex-wrap: wrap; gap: .6vw; justify-content: center; align-content: center; max-width: 92%; }
-  .svballs .pairgroup { display: flex; gap: .2vw; }
-  .pairlist { display: flex; flex-direction: column; gap: 1.6vh; align-items: center; }
-  .pairrow { display: flex; align-items: center; gap: .6vw; }
-  .pairrow .plus { color: var(--txt); opacity: .55; font-size: 1.5vw; font-weight: 700; }
-  .pairrow .cnt { color: var(--gold); font-size: 2vw; font-weight: 800; margin-left: .5vw; }
-  .pairrow .cnt small { font-size: .9vw; opacity: .65; color: var(--txt); font-weight: 600; }
-  .mb {
-    width: 3.4vw; height: 3.4vw; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 1.5vw; font-weight: 800; color: #3a2600;
-    background: radial-gradient(circle at 30% 22%, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 22%), radial-gradient(circle at 38% 32%, var(--gold-hi), var(--gold) 58%, var(--gold-lo) 100%);
-    box-shadow: inset 0 -.5vh .8vh rgba(0,0,0,.3), inset 0 .35vh .6vh rgba(255,255,255,.5), 0 .3vh .7vh rgba(0,0,0,.45);
-  }
-  /* mapa de calor */
-  .heatgrid { display: grid; grid-template-columns: repeat(10, 1fr); gap: .25vw; width: 100%; }
-  .heatgrid .hc { aspect-ratio: 1 / 1; border-radius: .3vw; display: flex; align-items: center; justify-content: center; font-size: .8vw; font-weight: 700; color: rgba(255,255,255,.92); text-shadow: 0 .05vh .12vh rgba(0,0,0,.6); }
-  /* racha maxima */
-  .rachaball {
-    width: 11vw; height: 11vw; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 4.8vw; font-weight: 800; color: #3a2600;
-    background: radial-gradient(circle at 30% 22%, rgba(255,255,255,.92) 0%, rgba(255,255,255,0) 22%), radial-gradient(circle at 38% 32%, var(--gold-hi), var(--gold) 58%, var(--gold-lo) 100%);
-    box-shadow: inset 0 -.8vh 1.4vh rgba(0,0,0,.35), inset 0 .5vh .9vh rgba(255,255,255,.5), 0 .6vh 1.2vh rgba(0,0,0,.5);
-  }
-  .rachatext { font-size: 1.4vw; font-weight: 700; color: var(--txt); text-align: center; }
-  .rachatext b { color: var(--gold); font-size: 2.2vw; }
-  #stats .clabel { font-size: 1.2vw; font-weight: 800; letter-spacing: .15vw; text-transform: uppercase; flex-shrink: 0; }
+  #stats .clabel { display: flex; align-items: center; justify-content: center; height: 4.8vw; flex-shrink: 0; }
+  #stats .clabel svg { height: 100%; width: auto; filter: drop-shadow(0 .25vh .45vh rgba(0,0,0,.55)); }
   #stats .hot .clabel { color: var(--hot); }
   #stats .cold .clabel { color: var(--cold); }
   #stats .balls { flex: 1; display: flex; flex-direction: column; gap: .8vh; align-items: center; justify-content: space-evenly; min-height: 0; width: 100%; }
   #stats .sb {
     flex: 0 1 auto; height: min(9.5vw, 17%); aspect-ratio: 1 / 1; width: auto; max-width: 100%;
     border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 2vw; font-weight: 800; color: #fff; position: relative;
-    box-shadow: inset 0 -.7vh 1.1vh rgba(0,0,0,.45), inset 0 .45vh .8vh rgba(255,255,255,.3), inset 0 0 0 .12vh rgba(255,255,255,.15), 0 .5vh 1vh rgba(0,0,0,.5);
-    text-shadow: 0 .12vh .25vh rgba(0,0,0,.4);
+    position: relative; overflow: hidden;
+    box-shadow:
+      0 .9vh 1.6vh rgba(0,0,0,.6),
+      inset 0 -1vh 1.5vh rgba(0,0,0,.5),
+      inset -.35vh -.45vh 1.1vh rgba(0,0,0,.4),
+      inset .35vh .45vh .9vh rgba(255,255,255,.4),
+      inset 0 -1.4vh 1.1vh -.9vh rgba(255,255,255,.25);
   }
   #stats .hot .sb {
-    background:
-      radial-gradient(circle at 30% 22%, rgba(255,255,255,.92) 0%, rgba(255,255,255,0) 20%),
-      radial-gradient(circle at 38% 30%, #ffd0b3 0%, #ff9466 32%, var(--hot) 60%, #c33c12 100%);
+    background: radial-gradient(circle at 35% 27%, #ffc2b6 0%, #f7604d 24%, #d4301f 56%, #8c1308 86%, #520a03 100%);
+    filter: drop-shadow(0 0 .45vw rgba(255,120,90,.95)) drop-shadow(0 0 1.7vw rgba(255,45,28,.6));
   }
   #stats .cold .sb {
-    color: #06314a; text-shadow: 0 .12vh .25vh rgba(255,255,255,.45);
-    background:
-      radial-gradient(circle at 30% 22%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 20%),
-      radial-gradient(circle at 38% 30%, #dcf3ff 0%, #82d3fb 32%, var(--cold) 60%, #137fb1 100%);
+    background: radial-gradient(circle at 35% 27%, #cdeffe 0%, #4fb6ed 24%, #1d86c8 56%, #0a4f80 86%, #053048 100%);
+    filter: drop-shadow(0 0 .45vw rgba(150,225,255,.95)) drop-shadow(0 0 1.7vw rgba(40,150,235,.65));
+  }
+  /* brillo especular */
+  #stats .sb::before {
+    content: ""; position: absolute; left: 16%; top: 8%; width: 40%; height: 30%;
+    background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 72%);
+    border-radius: 50%; transform: rotate(-20deg); z-index: 3; pointer-events: none;
+  }
+  /* disco blanco (etiqueta) con el numero */
+  #stats .sb .lbl {
+    position: relative; z-index: 2; width: 66%; height: 66%; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #15171c; font-weight: 800; font-size: 1.7vw;
+    background: radial-gradient(circle at 42% 36%, #ffffff 0%, #f4f4f4 58%, #d4d4d4 100%);
+    box-shadow: inset 0 -.3vh .6vh rgba(0,0,0,.2), inset 0 .15vh .3vh rgba(255,255,255,.9), 0 0 0 .1vh rgba(0,0,0,.07), 0 .2vh .4vh rgba(0,0,0,.3);
   }
 
   #status { text-align: center; font-size: .9vw; letter-spacing: .15vw; text-transform: uppercase; color: var(--dim); margin-top: .6vh; min-height: 1vw; }
@@ -319,32 +304,8 @@
         </div>
       </div>
       <div id="stats" class="hidden">
-        <div class="statview active" data-view="hotcold">
-          <div class="col hot"><div class="clabel">Calientes</div><div class="balls" id="hotBalls"></div></div>
-          <div class="col cold"><div class="clabel">Frios</div><div class="balls" id="coldBalls"></div></div>
-        </div>
-        <div class="statview" data-view="pairs">
-          <div class="svtitle">Parejas frecuentes</div>
-          <div class="svsub">ultimos sorteos</div>
-          <div class="pairlist" id="pairList"></div>
-        </div>
-        <div class="statview" data-view="consec">
-          <div class="svtitle">Consecutivos</div>
-          <div class="svsub">ultimo sorteo</div>
-          <div class="svcount" id="consecCount">--</div>
-          <div class="svballs" id="consecBalls"></div>
-        </div>
-        <div class="statview" data-view="heat">
-          <div class="svtitle">Mapa de calor</div>
-          <div class="svsub">frecuencia por numero</div>
-          <div class="heatgrid" id="heatGrid"></div>
-        </div>
-        <div class="statview" data-view="racha">
-          <div class="svtitle">Racha maxima</div>
-          <div class="svsub">sorteos seguidos</div>
-          <div class="rachaball" id="rachaBall">--</div>
-          <div class="rachatext" id="rachaText">--</div>
-        </div>
+        <div class="col hot"><div class="clabel"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="fireOuter" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a32"/><stop offset="52%" stop-color="#ff5a18"/><stop offset="100%" stop-color="#df240e"/></linearGradient><linearGradient id="fireInner" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6c2"/><stop offset="100%" stop-color="#ffb22b"/></linearGradient><path id="flamePath" d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></defs><use href="#flamePath" fill="url(#fireOuter)"/><use href="#flamePath" fill="url(#fireInner)" transform="translate(12 13.5) scale(.56) translate(-12 -13.5)"/></svg></div><div class="balls" id="hotBalls"></div></div>
+        <div class="col cold"><div class="clabel"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="iceG" gradientUnits="userSpaceOnUse" x1="50" y1="0" x2="50" y2="100"><stop offset="0%" stop-color="#eaf8ff"/><stop offset="100%" stop-color="#36a9e6"/></linearGradient><g id="snowArm"><line x1="50" y1="50" x2="50" y2="9"/><line x1="50" y1="20" x2="41" y2="11"/><line x1="50" y1="20" x2="59" y2="11"/><line x1="50" y1="31" x2="43" y2="24"/><line x1="50" y1="31" x2="57" y2="24"/></g></defs><g stroke="url(#iceG)" stroke-width="5" stroke-linecap="round" fill="none"><use href="#snowArm"/><use href="#snowArm" transform="rotate(60 50 50)"/><use href="#snowArm" transform="rotate(120 50 50)"/><use href="#snowArm" transform="rotate(180 50 50)"/><use href="#snowArm" transform="rotate(240 50 50)"/><use href="#snowArm" transform="rotate(300 50 50)"/></g></svg></div><div class="balls" id="coldBalls"></div></div>
       </div>
     </div>
   </div>
@@ -354,7 +315,7 @@
 
 <script>
 const GAME = 1100;
-const HIST = 40;                                  // sorteos a pedir para historico y estadisticas
+const HIST = 12;                                  // sorteos a pedir para historico y estadisticas
 const API = `https://numericsapi.allwyn.gr/draws/v3.0/${GAME}/last/${HIST}`;
 const POLL_MS = 5000;
 const REVEAL_MS = 2500;
@@ -369,11 +330,6 @@ let nextDrawTime = null;
 let prevDrawTime = null;
 let waitingForDraw = false;
 let pollTimer = null;
-let lastResults = [];                             // ultimos sorteos crudos (para estadisticas)
-let rotTimer = null;                              // temporizador de rotacion de vistas
-let viewIdx = 0;
-const STAT_VIEWS = ["hotcold", "heat", "racha", "pairs", "consec"];
-const ROTATE_MS = 8000;                           // tiempo por vista
 
 const MES = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"];
 
@@ -538,12 +494,15 @@ function resetBombo() {
 }
 
 // Alterna columna derecha: bombo (durante el sorteo / cuenta atras) vs calientes-frios (entre sorteos)
+let drawingMode = null;
 function setDrawingMode(drawing) {
+  drawing = !!drawing;
+  if (drawing === drawingMode) return;     // ya esta en ese modo: no reiniciar el bombo (evita saltos en la cuenta atras)
+  drawingMode = drawing;
   document.getElementById("strip").classList.toggle("hidden", drawing);
   document.getElementById("bombo").classList.toggle("hidden", !drawing);
   document.getElementById("stats").classList.toggle("hidden", drawing);
-  if (drawing) { setTimeout(initMixer, 60); stopRotation(); }   // recolocar bolas del bombo y parar rotacion
-  else { renderStatViews(); startRotation(); }                   // entre sorteos: mostrar y rotar estadisticas
+  if (drawing) setTimeout(initMixer, 60);   // recolocar bolas del bombo solo al entrar en modo sorteo
 }
 function bomboShow(num, idx) {
   // bola central
@@ -611,103 +570,15 @@ function renderStats(results) {
 
   const fill = (id, items) => {
     const box = document.getElementById(id); box.innerHTML = "";
-    items.forEach(it => { const b = document.createElement("div"); b.className = "sb"; b.textContent = it.n; box.appendChild(b); });
+    items.forEach(it => {
+      const b = document.createElement("div"); b.className = "sb";
+      const s = document.createElement("span"); s.className = "lbl"; s.textContent = it.n;
+      b.appendChild(s); box.appendChild(b);
+    });
   };
   fill("hotBalls", hot);
   fill("coldBalls", cold);
 }
-
-// --- vistas rotativas de la columna derecha ---
-function renderPairs() {
-  const counts = new Map();
-  lastResults.forEach(d => {
-    const L = d.winningNumbers.list.filter(n => n>=1 && n<=80).sort((a,b)=>a-b);
-    for (let i = 0; i < L.length; i++)
-      for (let j = i+1; j < L.length; j++) { const k = L[i]*100 + L[j]; counts.set(k, (counts.get(k)||0)+1); }
-  });
-  const top = [...counts.entries()].sort((a,b)=> b[1]-a[1] || a[0]-b[0]).slice(0, 4);
-  const box = document.getElementById("pairList"); box.innerHTML = "";
-  top.forEach(([k, c]) => {
-    const a = Math.floor(k/100), b = k % 100;
-    const row = document.createElement("div"); row.className = "pairrow";
-    const ba = document.createElement("div"); ba.className = "mb"; ba.textContent = a;
-    const plus = document.createElement("div"); plus.className = "plus"; plus.textContent = "+";
-    const bb = document.createElement("div"); bb.className = "mb"; bb.textContent = b;
-    const cnt = document.createElement("div"); cnt.className = "cnt"; cnt.innerHTML = c + "<small> veces</small>";
-    row.append(ba, plus, bb, cnt); box.appendChild(row);
-  });
-}
-
-function renderConsec() {
-  const last = lastResults[0];
-  const L = (last && last.winningNumbers) ? last.winningNumbers.list.slice().sort((a,b)=>a-b) : [];
-  const set = new Set(L);
-  const pairs = [];
-  for (let i = 0; i < L.length; i++) if (set.has(L[i] + 1)) pairs.push([L[i], L[i] + 1]);
-  document.getElementById("consecCount").textContent = pairs.length;
-  const box = document.getElementById("consecBalls"); box.innerHTML = "";
-  pairs.forEach(([a, b]) => {
-    const g = document.createElement("div"); g.className = "pairgroup";
-    const ba = document.createElement("div"); ba.className = "mb"; ba.textContent = a;
-    const bb = document.createElement("div"); bb.className = "mb"; bb.textContent = b;
-    g.append(ba, bb); box.appendChild(g);
-  });
-}
-
-function heatColor(t) {
-  const stops = [[0,[18,40,78]], [0.4,[38,110,170]], [0.7,[240,160,40]], [1,[225,70,40]]];
-  let a = stops[0], b = stops[stops.length-1];
-  for (let i = 0; i < stops.length-1; i++) { if (t >= stops[i][0] && t <= stops[i+1][0]) { a = stops[i]; b = stops[i+1]; break; } }
-  const span = (b[0]-a[0]) || 1, f = (t-a[0]) / span;
-  const m = a[1].map((v,i)=> Math.round(v + (b[1][i]-v)*f));
-  return `rgb(${m[0]},${m[1]},${m[2]})`;
-}
-
-function renderHeat() {
-  const freq = new Array(81).fill(0);
-  lastResults.forEach(d => d.winningNumbers.list.forEach(n => { if (n>=1 && n<=80) freq[n]++; }));
-  let max = 1; for (let n = 1; n <= 80; n++) if (freq[n] > max) max = freq[n];
-  const grid = document.getElementById("heatGrid"); grid.innerHTML = "";
-  for (let n = 1; n <= 80; n++) {
-    const c = document.createElement("div"); c.className = "hc"; c.textContent = n;
-    c.style.background = heatColor(freq[n] / max);
-    grid.appendChild(c);
-  }
-}
-
-function renderRacha() {
-  const chrono = lastResults.slice().reverse();   // del mas antiguo al mas reciente
-  let best = { n: null, run: 0 };
-  const cur = new Array(81).fill(0);
-  chrono.forEach(d => {
-    const present = new Array(81).fill(false);
-    d.winningNumbers.list.forEach(n => { if (n>=1 && n<=80) present[n] = true; });
-    for (let n = 1; n <= 80; n++) {
-      if (present[n]) { cur[n]++; if (cur[n] > best.run) best = { n, run: cur[n] }; }
-      else cur[n] = 0;
-    }
-  });
-  const ball = document.getElementById("rachaBall"), txt = document.getElementById("rachaText");
-  if (best.n) { ball.textContent = best.n; txt.innerHTML = `<b>${best.run}</b> sorteos seguidos`; }
-  else { ball.textContent = "--"; txt.textContent = "--"; }
-}
-
-function renderStatViews() {
-  if (!lastResults.length) return;
-  renderHeat();
-  renderRacha();
-  renderPairs();
-  renderConsec();
-}
-
-function showStatView(i) {
-  viewIdx = (i + STAT_VIEWS.length) % STAT_VIEWS.length;
-  document.querySelectorAll("#stats .statview").forEach(v => {
-    v.classList.toggle("active", v.dataset.view === STAT_VIEWS[viewIdx]);
-  });
-}
-function startRotation() { stopRotation(); showStatView(0); rotTimer = setInterval(() => showStatView(viewIdx + 1), ROTATE_MS); }
-function stopRotation() { if (rotTimer) { clearInterval(rotTimer); rotTimer = null; } }
 
 async function poll() {
   try {
@@ -724,7 +595,7 @@ async function poll() {
 
     document.getElementById("status").textContent = "";
 
-    if (results.length) { lastResults = results; renderHistory(results); renderStats(results); renderStatViews(); }
+    if (results.length) { renderHistory(results); renderStats(results); }
 
     if (result && result.drawId !== currentDrawId) {
       currentDrawId = result.drawId;
