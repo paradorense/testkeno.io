@@ -50,25 +50,25 @@
   #main { flex: 1; display: flex; gap: 1.4vw; min-height: 0; }
   #left { flex: 1; display: flex; flex-direction: column; gap: 1.2vh; min-height: 0; min-width: 0; }
   #board-wrap { flex: 1; position: relative; display: flex; min-height: 0; }
-  #side { width: 22vw; flex-shrink: 0; display: flex; min-height: 0; }
+  #side { width: 22vw; flex-shrink: 0; display: flex; min-height: 0; background: none !important; border: none !important; }
 
   /* ---------- Bombo ---------- */
   #bombo {
-    width: 100%; height: 100%;
+    width: 100%; height: 100%; background: none !important; border: none !important;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5vh;
-    padding: 1vh 0;
+    padding: 0;
   }
   #bombo.hidden, #stats.hidden { display: none; }
   .drum {
     position: relative;
-    height: min(18vw, 46%); width: auto; aspect-ratio: 1 / 1; flex: 0 0 auto;
-    container-type: size;
-    border-radius: 50%;
+    width: min(21vw, 96%); height: 98%; flex: 0 0 auto;
+    container-type: inline-size;
+    border-radius: 50%; overflow: hidden;
     background:
-      radial-gradient(circle at 38% 32%, rgba(255,255,255,.18), rgba(255,255,255,0) 45%),
-      radial-gradient(circle at 50% 50%, #1a3a6e 0%, #0c1f43 70%);
+      radial-gradient(ellipse at 38% 32%, rgba(255,255,255,.18), rgba(255,255,255,0) 45%),
+      radial-gradient(ellipse at 50% 50%, #1a3a6e 0%, #0c1f43 70%);
     background-color: #112a55;
-    box-shadow: inset 0 0 3vw rgba(0,0,0,.6), inset 0 0 0 .12vw rgba(143,167,209,.3), 0 0 0 .35vw #2b5894, 0 1vh 3vh rgba(0,0,0,.5);
+    box-shadow: inset 0 0 3vw rgba(0,0,0,.6), inset 0 0 0 .12vw rgba(143,167,209,.3), inset 0 0 0 .35vw #2b5894, 0 1vh 3vh rgba(0,0,0,.5);
   }
   /* guia circular sobre la que se apoyan las bolitas */
   .drum::after {
@@ -81,11 +81,11 @@
   }
   .ring .dot {
     position: absolute;
-    width: 8.3cqw; height: 8.3cqw; border-radius: 50%;
+    width: 10.5cqw; height: 10.5cqw; border-radius: 50%;
     left: 50%; top: 50%;
-    margin: -4.15cqw 0 0 -4.15cqw;
+    margin: -5.25cqw 0 0 -5.25cqw;
     display: flex; align-items: center; justify-content: center;
-    font-size: 4.4cqw; font-weight: 700; color: #06203f;
+    font-size: 5.7cqw; font-weight: 800; color: #06203f;
     background: radial-gradient(circle at 38% 32%, rgba(150,174,214,.55), rgba(74,100,150,.28) 72%);
     box-shadow: inset 0 .08vh .12vh rgba(255,255,255,.25);
     transition: background .3s ease, box-shadow .3s ease, transform .3s ease;
@@ -93,11 +93,11 @@
   .ring .dot.on {
     color: #3a2600; transform: scale(1.06);
     background: radial-gradient(circle at 38% 30%, var(--gold-hi), var(--gold) 60%, var(--gold-lo));
-    box-shadow: inset 0 .1vh .15vh rgba(255,255,255,.8), 0 0 5.5cqw .8cqw rgba(244,192,32,.7);
+    box-shadow: inset 0 .1vh .15vh rgba(255,255,255,.8), 0 0 7cqw 1cqw rgba(244,192,32,.7);
   }
   .center-ball {
     position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
-    width: 50%; height: 50%; border-radius: 50%;
+    width: 46%; height: auto; aspect-ratio: 1 / 1; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-size: 25cqw; font-weight: 800; color: #3a2600;
     background:
@@ -108,26 +108,6 @@
   .center-ball.pop { animation: ballpop .5s cubic-bezier(.2,1.5,.4,1); }
   @keyframes ballpop { 0%{transform:translate(-50%,-50%) scale(.4);opacity:.3} 60%{transform:translate(-50%,-50%) scale(1.15)} 100%{transform:translate(-50%,-50%) scale(1);opacity:1} }
 
-  .hopper {
-    height: min(18vw, 46%); width: auto; aspect-ratio: 1 / 1; flex: 0 0 auto;
-    border-radius: 50%; position: relative; overflow: hidden;
-    background:
-      radial-gradient(circle at 38% 32%, rgba(255,255,255,.18), rgba(255,255,255,0) 45%),
-      radial-gradient(circle at 50% 50%, #1a3a6e 0%, #0c1f43 70%);
-    background-color: #112a55;
-    box-shadow: inset 0 0 3vw rgba(0,0,0,.6), inset 0 0 0 .12vw rgba(143,167,209,.3), 0 0 0 .35vw #2b5894, 0 1vh 3vh rgba(0,0,0,.5);
-  }
-  .hopper .mixer { position: absolute; inset: 5%; z-index: 2; }
-  .hopper .glass {
-    position: absolute; inset: 0; border-radius: 50%; pointer-events: none; z-index: 4;
-    background: radial-gradient(circle at 34% 20%, rgba(255,255,255,.14), rgba(255,255,255,0) 30%);
-  }
-  .mball {
-    position: absolute; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums;
-    box-shadow: inset 0 .14vh .2vh rgba(255,255,255,.8), inset 0 -.16vh .22vh rgba(0,0,0,.3), 0 .1vh .2vh rgba(0,0,0,.5);
-  }
   #board {
     flex: 1; border: .25vw solid var(--frame); border-radius: 1.2vw;
     background: radial-gradient(130% 130% at 50% 0%, rgba(43,88,148,.45) 0%, rgba(10,28,63,.2) 60%), var(--blue-0);
@@ -312,10 +292,6 @@
           <div class="ring" id="ring"></div>
           <div class="center-ball" id="centerBall">--</div>
         </div>
-        <div class="hopper">
-          <div class="mixer" id="mixer"></div>
-          <div class="glass"></div>
-        </div>
       </div>
       <div id="stats" class="hidden">
         <div class="col hot"><div class="clabel"><svg class="flame" viewBox="0 0 64 96" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="flR" cx="50%" cy="78%" r="72%"><stop offset="0" stop-color="#ff8a1f"/><stop offset="60%" stop-color="#f24310"/><stop offset="100%" stop-color="#c11605"/></radialGradient><radialGradient id="flO" cx="50%" cy="80%" r="72%"><stop offset="0" stop-color="#ffd84a"/><stop offset="70%" stop-color="#ff7a18"/><stop offset="100%" stop-color="#ff5500"/></radialGradient><radialGradient id="flY" cx="50%" cy="84%" r="70%"><stop offset="0" stop-color="#fff7cf"/><stop offset="100%" stop-color="#ffcf3f"/></radialGradient><path id="flP" d="M32 3 C 41 27 57 35 54 60 C 51 80 43 92 32 92 C 21 92 13 80 11 62 C 9 48 19 42 24 52 C 20 40 27 28 32 3 Z"/></defs><use href="#flP" fill="url(#flR)" class="lyr l1"/><g transform="translate(32 66) scale(.68) translate(-32 -66)"><use href="#flP" fill="url(#flO)" class="lyr l2"/></g><g transform="translate(32 72) scale(.4) translate(-32 -72)"><use href="#flP" fill="url(#flY)" class="lyr l3"/></g></svg></div><div class="balls" id="hotBalls"></div></div>
@@ -381,16 +357,45 @@ window.addEventListener("resize", fitBoard);
 const ring = document.getElementById("ring");
 const ringDots = [];
 const RING_N = 20;
+const RING_R = 41;                                   // % del radio del aro
 for (let k = 0; k < RING_N; k++) {
   const d = document.createElement("div");
   d.className = "dot";
-  const ang = (k / RING_N) * 2 * Math.PI - Math.PI/2;
-  const r = 41; // % del radio
-  d.style.left = `calc(50% + ${Math.cos(ang)*r}%)`;
-  d.style.top  = `calc(50% + ${Math.sin(ang)*r}%)`;
   ring.appendChild(d);
   ringDots.push(d);
 }
+
+// Reparte los puntos a intervalos IGUALES de longitud de arco (no por angulo,
+// que en un ovalo los amontona arriba/abajo) y los hace lo mas grandes posible.
+function layoutRing() {
+  const W = ring.clientWidth, H = ring.clientHeight;
+  if (!W || !H) return;
+  const a = (RING_R / 100) * W, b = (RING_R / 100) * H;   // semiejes en px
+  const STEPS = 1440;
+  const ts = new Array(STEPS + 1), cum = new Array(STEPS + 1);
+  let len = 0, px = a * Math.cos(-Math.PI / 2), py = b * Math.sin(-Math.PI / 2);
+  for (let i = 0; i <= STEPS; i++) {
+    const t = -Math.PI / 2 + (i / STEPS) * 2 * Math.PI;   // empezar arriba
+    const x = a * Math.cos(t), y = b * Math.sin(t);
+    if (i > 0) len += Math.hypot(x - px, y - py);
+    ts[i] = t; cum[i] = len; px = x; py = y;
+  }
+  const total = len;
+  const dotD = Math.max(6, (total / RING_N) * 0.84);       // diametro ~ separacion entre puntos
+  let j = 0;
+  for (let k = 0; k < RING_N; k++) {
+    const want = (k / RING_N) * total;
+    while (j < STEPS && cum[j] < want) j++;
+    const t = ts[j];
+    const d = ringDots[k];
+    d.style.left = `calc(50% + ${(Math.cos(t) * RING_R).toFixed(3)}%)`;
+    d.style.top  = `calc(50% + ${(Math.sin(t) * RING_R).toFixed(3)}%)`;
+    d.style.width = d.style.height = dotD.toFixed(1) + "px";
+    d.style.margin = `${(-dotD / 2).toFixed(1)}px 0 0 ${(-dotD / 2).toFixed(1)}px`;
+    d.style.fontSize = (dotD * 0.5).toFixed(1) + "px";
+  }
+}
+layoutRing();
 const centerBall = document.getElementById("centerBall");
 
 // --- Bombo inferior: bolas en movimiento continuo (mezclador) ---
@@ -409,6 +414,7 @@ const BALL_COLORS = [
   { hi: "#ffc4e1", mid: "#ec407a", lo: "#a01050", tx: "#fff" }     // rosa
 ];
 function initMixer() {
+  if (!mixer) return;
   mixer.innerHTML = "";
   mballs.length = 0;
   const cx = mixer.offsetWidth / 2, cy = mixer.offsetHeight / 2;
@@ -440,6 +446,7 @@ function initMixer() {
   }
 }
 function mixStep() {
+  if (!mixer) return;
   const cx = mixer.offsetWidth / 2, cy = mixer.offsetHeight / 2;
   const R = Math.min(cx, cy);
   for (const b of mballs) {
@@ -481,9 +488,9 @@ function mixStep() {
     b.el.style.left = (cx + b.x - b.r) + "px";
     b.el.style.top  = (cy + b.y - b.r) + "px";
   }
-  requestAnimationFrame(mixStep);
 }
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (mixer) {
 initMixer();
 if (reduceMotion) {
   // sin animacion: asentar las bolas en el fondo con unos pasos de fisica
@@ -498,9 +505,19 @@ if (reduceMotion) {
   }
   for (const b of mballs) { b.el.style.left = (mixer.offsetWidth/2 + b.x - b.r) + "px"; b.el.style.top = (mixer.offsetHeight/2 + b.y - b.r) + "px"; }
 } else {
-  requestAnimationFrame(mixStep);
+  // Bucle hibrido: requestAnimationFrame (suave) + temporizador de respaldo.
+  // OBS suele frenar rAF cuando cree que la pagina no es visible; el setInterval
+  // mantiene la animacion en marcha. El guard evita que vaya al doble de velocidad.
+  let mixLast = 0;
+  function mixFrame(now) {
+    now = now || performance.now();
+    if (now - mixLast >= 28) { mixStep(); mixLast = now; }
+  }
+  (function rafLoop(t) { mixFrame(t); requestAnimationFrame(rafLoop); })();
+  setInterval(() => mixFrame(performance.now()), 30);
 }
-window.addEventListener("resize", () => setTimeout(initMixer, 200));
+}
+window.addEventListener("resize", () => setTimeout(() => { initMixer(); layoutRing(); }, 200));
 
 function resetBombo() {
   ringDots.forEach(d => { d.classList.remove("on"); d.textContent = ""; });
@@ -516,7 +533,7 @@ function setDrawingMode(drawing) {
   document.getElementById("strip").classList.toggle("hidden", drawing);
   document.getElementById("bombo").classList.toggle("hidden", !drawing);
   document.getElementById("stats").classList.toggle("hidden", drawing);
-  if (drawing) setTimeout(initMixer, 60);   // recolocar bolas del bombo solo al entrar en modo sorteo
+  if (drawing) { setTimeout(initMixer, 60); setTimeout(layoutRing, 60); }   // recolocar bolas/aro al entrar en modo sorteo
 }
 function bomboShow(num, idx) {
   // bola central
